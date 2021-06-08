@@ -7,7 +7,7 @@ require_once('../env.php');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>スタッフ一覧ページ</title>
 </head>
 <body>
     <?php
@@ -25,7 +25,7 @@ require_once('../env.php');
         $dbh = null;
 
         echo "<h2>スタッフ一覧</h2>";
-        echo "<form method='post' action='staff_edit.php'>";
+        echo "<form method='post' action='staff_branch.php'>";
 
         while(true){
             $rec = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -35,7 +35,10 @@ require_once('../env.php');
             echo "<input type='radio' name='staffcode' value='".$rec["code"]."'>";
             echo $rec['name']."<br>";
         }
-        echo "<input type='submit' value='修正'>";
+        echo "<input type='submit' name='disp' value='参照'>";
+        echo "<input type='submit' name='add' value='追加'>";
+        echo "<input type='submit' name='edit' value='修正'>";
+        echo "<input type='submit' name='delete' value='削除'>";
         echo "</form>";
     }catch(Exception $e){
         echo "失敗しました";

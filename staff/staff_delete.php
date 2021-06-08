@@ -7,7 +7,7 @@ require_once('../env.php');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>スタッフ編集画面</title>
+    <title>スタッフ削除画面</title>
 </head>
 <body>
     <?php
@@ -35,17 +35,14 @@ require_once('../env.php');
         exit();
     }
     ?>
-    <h2>スタッフ修正</h2>
+    <h2>スタッフ削除</h2>
     <p>スタッフコード</p>
     <p><?php echo $staff_code; ?></p>
-    <form action="staff_edit_check.php" method="post">
+    <p>スタッフ名</p>
+    <p><?php echo $staff_name; ?></p>
+    <p>このスタッフを削除してもよろしいですか？</p>
+    <form action="staff_delete_done.php" method="post">
         <input type="hidden" name="code" value="<?php echo $staff_code; ?>">
-        <p>スタッフ名</p>
-        <input type="text" name="name" style="width: 200px;" value="<?php echo $staff_name; ?>">
-        <p>パスワードを入力してください</p>
-        <input type="password" name="pass" style="width: 100px;">
-        <p>パスワードをもう一度入力してください</p>
-        <input type="password" name="pass2" style="width: 100px;">
         <br>
         <input type="button" onclick="history.back()" value="戻る">
         <input type="submit" value="OK">

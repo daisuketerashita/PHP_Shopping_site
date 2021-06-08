@@ -7,40 +7,41 @@ require_once('../env.php');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>スタッフ参照画面</title>
 </head>
 <body>
     <?php
-
     try{
-        $staff_name = $_POST['name'];
-        $staff_pass = $_POST['pass'];
+        $staff_code = $_GET['staffcode'];
 
-        $staff_name = htmlspecialchars($staff_name,ENT_QUOTES,'UTF-8');
-        $staff_pass = htmlspecialchars($staff_pass,ENT_QUOTES,'UTF-8');
-
-        //データベースに接続
+        //データベース接続
         $dbh = new PDO($dsn,$user,$pass);
         $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
         //SQLの実行
-        $sql = "INSERT INTO mst_staff (name,password) VALUES (?,?)";
+        $sql = "SELECT name FROM mst_staff WHERE code=?";
         $stmt = $dbh->prepare($sql);
-        $data[] = $staff_name;
-        $data[] = $staff_pass;
+        $data[] = $staff_code;
         $stmt->execute($data);
+
+        //表示
+        $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+        $staff_name = $rec['name'];
 
         //データベースから切断
         $dbh = null;
-
-        //画面表示
-        echo $staff_name."さんを追加しました<br>";
     }catch(Exception $e){
         echo "失敗しました";
         exit();
     }
     ?>
-
-    <a href="staff_list.php">スタッフ一覧に戻る</a>
+    <h2>スタッフ情報参照</h2>
+    <h3>スタッフコード</h3>
+    <p><?php echo $staff_code; ?></p>
+    <h3>スタッフ名</h3>
+    <p><?php echo $staff_name; ?></p>
+    <form>
+        <input type="button" onclick="history.back()" value="戻る">
+    </form>
 </body>
 </html>
