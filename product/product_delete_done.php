@@ -14,6 +14,7 @@ require_once('../env.php');
 
     try{
         $pro_code = $_POST['code'];
+        $pro_image_name = $_POST['image_name'];
 
         //データベースに接続
         $dbh = new PDO($dsn,$user,$pass);
@@ -27,6 +28,10 @@ require_once('../env.php');
 
         //データベースから切断
         $dbh = null;
+
+        if($pro_image_name !== ''){
+            unlink('./images/'.$pro_image_name);
+        }
     }catch(Exception $e){
         echo "失敗しました";
         exit();
