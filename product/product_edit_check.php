@@ -13,6 +13,8 @@
     $pro_code = $_POST['code'];
     $pro_name = $_POST['name'];
     $pro_price = $_POST['price'];
+    $pro_image_name_old = $_POST['image_name_old'];
+    $pro_image = $_FILES['image'];
 
 
     //特殊文字を HTML エンティティに変換
@@ -32,8 +34,20 @@
     }else{
         echo "価格：{$pro_price}円<br>";
     }
+
+    //画像の大きさをチェック
+    if($pro_image['size'] > 0){
+        if($pro_image['size'] > 1000000){
+            echo "画像が大きすぎます";
+        }else{
+            move_uploaded_file($pro_image['tmp_name'],'./images/'.$pro_image['name']);
+            echo "<img src='./images/".$pro_image['name']."'>";
+            echo "<br>";
+        }
+    }
+
     ?>
-    <?php if($pro_name == '' || preg_match('/\A[0-9]+\z/',$pro_price) == 0): ?>
+    <?php if($pro_name == '' || preg_match('/\A[0-9]+\z/',$pro_price) == 0 || $pro_image['size'] > 1000000): ?>
     <form>
         <input type='button' onclick='history.back()' value='戻る'>
     </form>
@@ -43,6 +57,8 @@
         <input type="hidden" name="code" value="<?php echo $pro_code; ?>">
         <input type="hidden" name="name" value="<?php echo $pro_name; ?>">
         <input type="hidden" name="price" value="<?php echo $pro_price; ?>">
+        <input type="hidden" name="image_name_old" value="<?php echo $pro_image_name_old; ?>">
+        <input type="hidden" name="image_name" value="<?php echo $pro_image['name']; ?>">
         <br>
         <input type='button' onclick='history.back()' value='戻る'>
         <input type="submit" value="OK">
