@@ -14,6 +14,7 @@ require_once('../env.php');
     try{
         $pro_name = $_POST['name'];
         $pro_price = $_POST['price'];
+        $pro_image_name = $_POST['image_name'];
 
         $pro_name = htmlspecialchars($pro_name,ENT_QUOTES,'UTF-8');
         $pro_price = htmlspecialchars($pro_price,ENT_QUOTES,'UTF-8');
@@ -22,10 +23,11 @@ require_once('../env.php');
         $dbh = new PDO($dsn,$user,$pass);
         $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
-        $sql = "INSERT INTO mst_product (name,price) VALUES (?,?)";
+        $sql = "INSERT INTO mst_product (name,price,image) VALUES (?,?,?)";
         $stmt = $dbh->prepare($sql);
         $data[] = $pro_name;
         $data[] = $pro_price;
+        $data[] = $pro_image_name;
         $stmt->execute($data);
 
         $dbh = null;

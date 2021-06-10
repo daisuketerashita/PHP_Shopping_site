@@ -19,7 +19,7 @@ require_once('../env.php');
         $dbh->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
 
         //SQLの実行
-        $sql = "SELECT name,price FROM mst_product WHERE code=?";
+        $sql = "SELECT name,price,image FROM mst_product WHERE code=?";
         $stmt = $dbh->prepare($sql);
         $data[] = $pro_code;
         $stmt->execute($data);
@@ -28,9 +28,17 @@ require_once('../env.php');
         $rec = $stmt->fetch(PDO::FETCH_ASSOC);
         $pro_name = $rec['name'];
         $pro_price = $rec['price'];
+        $pro_image_name = $rec['image'];
 
         //データベースから切断
         $dbh = null;
+
+        //画像表示タグの準備
+        if($pro_image_name == ''){
+            $disp_image = '';
+        }else{
+            $disp_image = "<img src='./images/".$pro_image_name."'>";
+        }
     }catch(Exception $e){
         echo "失敗しました";
         exit();
@@ -43,6 +51,8 @@ require_once('../env.php');
     <p><?php echo $pro_name; ?></p>
     <h3>価格</h3>
     <p><?php echo $pro_price; ?></p>
+    <?php echo $disp_image; ?>
+    <br>
     <form>
         <input type="button" onclick="history.back()" value="戻る">
     </form>

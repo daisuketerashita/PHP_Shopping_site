@@ -8,11 +8,13 @@
 </head>
 <body>
     <h2>商品追加</h2>
-    <form action="product_add_check.php" method="post">
+    <form action="product_add_check.php" method="post" enctype="multipart/form-data">
         <p>商品名を入力してください</p>
         <input type="text" name="name" style="width: 200px;">
         <p>価格を入力してください</p>
         <input type="text" name="price" style="width: 50px;">
+        <p>画像を選んでください</p>
+        <input type="file" name="image" style="width: 400px">
         <p>
             <input type="button" onclick="history.back()" value="戻る">
             <input type="submit" value="OK">
