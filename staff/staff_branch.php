@@ -1,4 +1,12 @@
 <?php
+session_start();
+session_regenerate_id(true);
+if(isset($_SESSION['login']) == false){
+    echo "ログインされていません<br>";
+    echo "<a href='../staff_login/staff_login.html'>ログイン画面へ</a>";
+    exit();
+}
+
 //参照ページへ
 if(isset($_POST['disp']) == true){
     if(isset($_POST['staffcode']) == false){
