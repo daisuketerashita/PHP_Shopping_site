@@ -22,5 +22,7 @@ if(isset($_SESSION['login']) == false){
     <a href="../staff/staff_list.php">スタッフ管理ページ</a>
     <br>
     <a href="../product/product_list.php">商品管理ページ</a>
+    <br>
+    <a href="staff_logout.php">ログアウト</a>
 </body>
 </html>
