@@ -32,6 +32,7 @@ try
 {
 
 $cart = $_SESSION['cart'];
+$number = $_SESSION['number'];
 $max = count($cart);
 
 //データベース接続
@@ -66,12 +67,19 @@ $dbh = null;
 ?>
 
 <h3>カートの中身</h3>
+<form action="number_change.php" method="post">
 <?php for($i = 0;$i < $max;$i++): ?>
-<p><?php echo $pro_name[$i]; ?>
+<p>
+<?php echo $pro_name[$i]; ?>
 <?php echo $pro_image[$i]; ?>
-<?php echo $pro_price[$i]; ?>円</p>
+<?php echo $pro_price[$i]; ?>円
+<input type="text" name="number<?php echo $i; ?>" value="<?php echo $number[$i]; ?>" style="width: 40px">
+</p>
+<p><?php echo $pro_price[$i] * $number[$i]; ?>円</p>
+<hr>
 <?php endfor; ?>
-<form>
+<input type="hidden" name="max" value="<?php echo $max; ?>">
+<input type="submit" value="数量変更"><br>
 <input type="button" onclick="history.back()" value="戻る">
 </form>
 

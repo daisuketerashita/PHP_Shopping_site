@@ -30,14 +30,18 @@ else
 try
 {
 // session_start();
-$pro_code=$_GET['procode'];
+$pro_code = $_GET['procode'];
 
-if(isset($_SESSION['cart'])==true)
+if(isset($_SESSION['cart']) == true)
 {
-	$cart=$_SESSION['cart'];
+	$cart = $_SESSION['cart'];
+    $number = $_SESSION['number'];
 }
-$cart[]=$pro_code;
-$_SESSION['cart']=$cart;
+$cart[] = $pro_code;
+$number[] = 1;
+
+$_SESSION['cart'] = $cart;
+$_SESSION['number'] = $number;
 }
 catch(Exception $e)
 {
