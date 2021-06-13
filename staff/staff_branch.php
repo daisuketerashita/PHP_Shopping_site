@@ -23,7 +23,7 @@ if(isset($_POST['add']) == true){
     header('Location: staff_add.php');
     exit();
 }
-うう
+
 //編集ページへ
 if(isset($_POST['edit']) == true){
     if(isset($_POST['staffcode']) == false){

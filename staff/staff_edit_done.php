@@ -1,5 +1,7 @@
 <?php
 require_once('../env.php');
+require_once('../common.php');
+
 session_start();
 session_regenerate_id(true);
 if(isset($_SESSION['login']) == false){
@@ -22,12 +24,12 @@ if(isset($_SESSION['login']) == false){
     <?php
 
     try{
-        $staff_code = $_POST['code'];
-        $staff_name = $_POST['name'];
-        $staff_pass = $_POST['pass'];
 
-        $staff_name = htmlspecialchars($staff_name,ENT_QUOTES,'UTF-8');
-        $staff_pass = htmlspecialchars($staff_pass,ENT_QUOTES,'UTF-8');
+        //入力データを受け取って変数に格納
+        $post = sanitize($_POST);
+        $staff_code = $_POST['code'];
+        $staff_name = $post['name'];
+        $staff_pass = $post['pass'];
 
         //データベースに接続
         $dbh = new PDO($dsn,$user,$pass);

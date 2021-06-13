@@ -1,3 +1,7 @@
+<?php
+require_once('../common.php');
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -10,17 +14,13 @@
     <?php
 
     //入力データを受け取って変数に格納
-    $pro_code = $_POST['code'];
-    $pro_name = $_POST['name'];
-    $pro_price = $_POST['price'];
+    $post = sanitize($_POST);
+    $pro_code = $post['code'];
+    $pro_name = $post['name'];
+    $pro_price = $post['price'];
+    
     $pro_image_name_old = $_POST['image_name_old'];
     $pro_image = $_FILES['image'];
-
-
-    //特殊文字を HTML エンティティに変換
-    $pro_code = htmlspecialchars($pro_code,ENT_QUOTES,'UTF-8');
-    $pro_name = htmlspecialchars($pro_name,ENT_QUOTES,'UTF-8');
-    $pro_price = htmlspecialchars($pro_price,ENT_QUOTES,'UTF-8');
 
     if($pro_name == ''){
         echo '商品名を入力してください<br>';
