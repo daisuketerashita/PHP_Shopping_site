@@ -55,5 +55,6 @@ if(isset($_SESSION['member_login']) === false){
         exit();
     }
     ?>
+    <button><a href="shop_cartlook.php">カートを見る</a></button>
 </body>
 </html>
