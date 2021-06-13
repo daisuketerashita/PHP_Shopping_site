@@ -30,10 +30,18 @@ else
 
 try
 {
-
+if(isset($_SESSION['cart']) == true){
 $cart = $_SESSION['cart'];
 $number = $_SESSION['number'];
 $max = count($cart);
+}else{
+	$max = 0;
+}
+if($max == 0){
+	echo "カートに商品が入っていません<br>";
+	echo "<a href='shop_list.php'>商品一覧へ戻る</a>";
+	exit();
+}
 
 //データベース接続
 $dbh = new PDO($dsn,$user,$pass);
@@ -76,6 +84,7 @@ $dbh = null;
 <input type="text" name="number<?php echo $i; ?>" value="<?php echo $number[$i]; ?>" style="width: 40px">
 </p>
 <p><?php echo $pro_price[$i] * $number[$i]; ?>円</p>
+<p>削除<input type="checkbox" name="delete<?php echo $i; ?>"></p>
 <hr>
 <?php endfor; ?>
 <input type="hidden" name="max" value="<?php echo $max; ?>">
